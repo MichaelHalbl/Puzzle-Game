@@ -1,4 +1,6 @@
-import 'package:firstapp_app/spielfeld_screen.dart';
+import 'package:firstapp_app/spielfeld_screen_Easy.dart';
+import 'package:firstapp_app/spielfeld_screen_Hard.dart';
+import 'package:firstapp_app/spielfeld_screen_Middle.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -61,32 +63,27 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    circButton(FontAwesomeIcons.info, spielfeld(), context),
-                    circButton(
-                        FontAwesomeIcons.lightbulb, spielfeld(), context),
-                    circButton(FontAwesomeIcons.cog, spielfeld(), context),
+                    circButton(FontAwesomeIcons.info, spielfeldEinfach(), context),
+                    circButton(FontAwesomeIcons.lightbulb, spielfeldEinfach(), context),
+                    circButton(FontAwesomeIcons.cog, spielfeldSchwer(), context),
                   ],
                 ),
                 Column(
                   //runSpacing: 16,
                   children: [
                     modeButton(
-                        spielfeld(),
+                        spielfeldEinfach(),
                         context,
                         "Einfach",
                         "elevate your level",
                         FontAwesomeIcons.feather,
                         Color(0xFF259E00),
                         width: MediaQuery.of(context).size.width - 80),
-                    modeButton(spielfeld(),
-                        context,
-                        "Mittel",
-                        "getting better",
-                        FontAwesomeIcons.userClock,
-                        Color(0xF5AAA600),
+                    modeButton(spielfeldMittel(), context, "Mittel", "getting better",
+                        FontAwesomeIcons.userClock, Color(0xF5AAA600),
                         width: MediaQuery.of(context).size.width - 80),
                     modeButton(
-                        spielfeld(),
+                        spielfeldSchwer(),
                         context,
                         "Schwer",
                         "this is really hard",
@@ -94,7 +91,7 @@ class HomeScreen extends StatelessWidget {
                         Color(0xFFA30000),
                         width: MediaQuery.of(context).size.width - 80),
                     modeButton(
-                      spielfeld(),
+                      spielfeldSchwer(),
                       context,
                       "Rangliste",
                       "the Best of the best",
