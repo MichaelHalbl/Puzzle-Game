@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class MyTitle extends StatelessWidget{
+class MyTitleHard extends StatelessWidget{
   var size;
 
-  MyTitle(this.size);
+  MyTitleHard(this.size);
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +12,7 @@ class MyTitle extends StatelessWidget{
       height: size.height * 0.10,
       padding: EdgeInsets.all(5.0),
       child: Text(
-          "Einfach",
+          "Schwer",
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: size.height * 0.05,

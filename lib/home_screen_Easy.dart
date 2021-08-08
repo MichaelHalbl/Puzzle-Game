@@ -1,3 +1,4 @@
+import 'package:firstapp_app/rank.dart';
 import 'package:firstapp_app/spielfeld_screen_Easy.dart';
 import 'package:firstapp_app/spielfeld_screen_Hard.dart';
 import 'package:firstapp_app/spielfeld_screen_Middle.dart';
@@ -91,7 +92,7 @@ class HomeScreen extends StatelessWidget {
                         Color(0xFFA30000),
                         width: MediaQuery.of(context).size.width - 80),
                     modeButton(
-                      spielfeldSchwer(),
+                      Rangliste(),
                       context,
                       "Rangliste",
                       "the Best of the best",

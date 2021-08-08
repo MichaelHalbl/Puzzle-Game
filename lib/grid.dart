@@ -16,9 +16,9 @@ class Grid extends StatelessWidget {
     var height = size.height;
 
     return Container(
-      height: height * 0.60,
+      height: height * 0.80,
       child: Padding(
-          padding: EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(28.0),
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4,

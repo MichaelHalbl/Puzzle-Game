@@ -1,8 +1,9 @@
 import 'dart:ffi';
 
+import 'package:firstapp_app/MyTitleHard.dart';
 import 'package:firstapp_app/Time.dart';
 import 'package:flutter/material.dart';
-import 'MyTitle.dart';
+import 'MyTitleEasy.dart';
 import 'buttons.dart';
 import 'grid.dart';
 import 'dart:async';
@@ -40,7 +41,7 @@ class _spielfeldState extends State<spielfeldSchwer> {
       color: Colors.orange,
       child: Column(
         children: <Widget>[
-          MyTitle(size),
+          MyTitleHard(size),
           Grid(numbers, size, clickGrid),
           buttons(reset, move, secondsPassed, size, back),
         ],
@@ -115,7 +116,7 @@ class _spielfeldState extends State<spielfeldSchwer> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "Du hast Gewonnen auf Einfach!",
+                        "Du hast Gewonnen auf Schwer!",
                         style: TextStyle(
                           fontSize: 20.0,
                         ),

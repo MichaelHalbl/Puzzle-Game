@@ -2,7 +2,7 @@ import 'dart:ffi';
 
 import 'package:firstapp_app/Time.dart';
 import 'package:flutter/material.dart';
-import 'MyTitle.dart';
+import 'MyTitleEasy.dart';
 import 'buttons.dart';
 import 'grid.dart';
 import 'dart:async';
@@ -40,7 +40,7 @@ class _spielfeldState extends State<spielfeldEinfach> {
       color: Colors.orange,
       child: Column(
         children: <Widget>[
-          MyTitle(size),
+          MyTitleEasy(size),
           Grid(numbers, size, clickGrid),
           buttons(reset, move, secondsPassed, size, back),
         ],
