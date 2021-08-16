@@ -14,7 +14,7 @@ class spielfeldMittel extends StatefulWidget {
 }
 
 class _spielfeldState extends State<spielfeldMittel> {
-  var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27];
+  var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
   int move = 0;
   int secondsPassed = 0;
   static const duration = const Duration(seconds: 1);
@@ -54,9 +54,9 @@ class _spielfeldState extends State<spielfeldMittel> {
       isActive = true;
     }
     if (index - 1 >= 0 && numbers[index - 1] == 0 && index % 4 != 0 ||
-        index + 1 < 27 && numbers[index + 1] == 0 && (index + 1) % 4 != 0 ||
+        index + 1 < 20 && numbers[index + 1] == 0 && (index + 1) % 4 != 0 ||
         (index - 4 >= 0 && numbers[index - 4] == 0) ||
-        (index + 4 < 27 && numbers[index + 4] == 0)) {
+        (index + 4 < 20 && numbers[index + 4] == 0)) {
       setState(() {
         numbers[numbers.indexOf(0)] = numbers[index];
         numbers[index] = 0;

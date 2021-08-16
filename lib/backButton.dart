@@ -11,9 +11,7 @@ class backButton extends StatelessWidget {
     return ElevatedButton(
       child: Text("Hauptmenü"),
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+        Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()),
         );
       },
     );

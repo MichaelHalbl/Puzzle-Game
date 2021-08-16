@@ -74,10 +74,7 @@ class _spielfeldState extends State<spielfeldEinfach> {
     });
   }
 
-  void back() {
-
-  }
-
+  void back() {}
 
   void startTime() {
     if (isActive) {}
@@ -123,11 +120,11 @@ class _spielfeldState extends State<spielfeldEinfach> {
                       SizedBox(
                           width: 200,
                           child: RaisedButton(
-                            onPressed: (){
+                            onPressed: () {
                               Navigator.pop(context);
                             },
                             child: Text(
-                                "Schließen",
+                              "Schließen",
                               style: TextStyle(
                                 color: Colors.white,
                               ),
@@ -143,4 +140,3 @@ class _spielfeldState extends State<spielfeldEinfach> {
     }
   }
 }
-

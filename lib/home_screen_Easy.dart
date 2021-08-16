@@ -64,9 +64,13 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    circButton(FontAwesomeIcons.info, spielfeldEinfach(), context),
-                    circButton(FontAwesomeIcons.lightbulb, spielfeldEinfach(), context),
-                    circButton(FontAwesomeIcons.cog, spielfeldSchwer(), context),
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    circButton(
+                        FontAwesomeIcons.info, context),
+                    circButton2(FontAwesomeIcons.lightbulb,
+                        context),
+                    circButton3(
+                        FontAwesomeIcons.cog, context),
                   ],
                 ),
                 Column(
@@ -79,10 +83,17 @@ class HomeScreen extends StatelessWidget {
                         "elevate your level",
                         FontAwesomeIcons.feather,
                         Color(0xFF259E00),
-                        width: MediaQuery.of(context).size.width - 80),
-                    modeButton(spielfeldMittel(), context, "Mittel", "getting better",
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width - 80),
+                    modeButton(
+                        spielfeldMittel(), context, "Mittel", "getting better",
                         FontAwesomeIcons.userClock, Color(0xF5AAA600),
-                        width: MediaQuery.of(context).size.width - 80),
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width - 80),
                     modeButton(
                         spielfeldSchwer(),
                         context,
@@ -90,7 +101,10 @@ class HomeScreen extends StatelessWidget {
                         "this is really hard",
                         FontAwesomeIcons.weightHanging,
                         Color(0xFFA30000),
-                        width: MediaQuery.of(context).size.width - 80),
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width - 80),
                     modeButton(
                       Rangliste(),
                       context,
@@ -98,7 +112,10 @@ class HomeScreen extends StatelessWidget {
                       "the Best of the best",
                       FontAwesomeIcons.listOl,
                       Color(0xFF2F80ED),
-                      width: MediaQuery.of(context).size.width - 80,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width - 80,
                     ),
                   ],
                 ),
@@ -110,14 +127,171 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Padding circButton(IconData icon, Widget screen, BuildContext context) {
+  Padding circButton(IconData icon, BuildContext context) {
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4.0),
         child: RawMaterialButton(
           onPressed: () {
             print("open");
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => screen));
+            Navigator
+                .of(context)
+                .push(MaterialPageRoute(builder: (context) =>
+                Dialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 12),
+                        Text(
+                          'Spielregeln',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        SizedBox(height: 12),
+                        Text(
+                          'Wie funktioniert das Spiel?'
+                              'Theoretisch ganz einfach, du musst nur die Zahlen nach ihrer Reinfolge sortieren. Sprich von Klein nach Groß. Wenn du das geschaft hast, dann hast du das Spiel gewonnen.'
+                              'Andern falls kannst du auch einfach den Resetbutton drücken, damit du das Spielfeld zurück setzen kannst',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        SizedBox(height: 12),
+                        ElevatedButton(
+                            child: Text('Verstanden!'),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HomeScreen(),
+                                  ));
+                            })
+                      ],
+                    ),
+                  ),
+                ),
+            ));
+          },
+          fillColor: Colors.lightBlue,
+          shape: CircleBorder(),
+          constraints: BoxConstraints(minHeight: 35, minWidth: 35),
+          child: FaIcon(icon, size: 22, color: Color(0xFF2F3041)),
+        ));
+  }
+
+  Padding circButton2(IconData icon, BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+        child: RawMaterialButton(
+          onPressed: () {
+            print("open");
+            Navigator
+                .of(context)
+                .push(MaterialPageRoute(builder: (context) =>
+                Dialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 12),
+                        Text(
+                          'Möchtest du',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        SizedBox(height: 12),
+                        Text(
+                          'Zum Dark oder Light Modus wechseln?',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        SizedBox(height: 12),
+                        ElevatedButton(
+                            child: Text('Ja!'),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HomeScreen(),
+                                  ));
+                            }),
+                        ElevatedButton(
+                            child: Text('Nein!'),
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomeScreen(),
+                                  ));
+                            })
+                      ],
+                    ),
+                  ),
+                ),
+            ));
+          },
+          fillColor: Colors.lightBlue,
+          shape: CircleBorder(),
+          constraints: BoxConstraints(minHeight: 35, minWidth: 35),
+          child: FaIcon(icon, size: 22, color: Color(0xFF2F3041)),
+        ));
+  }
+
+  Padding circButton3(IconData icon, BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4.0),
+        child: RawMaterialButton(
+          onPressed: () {
+            print("open");
+            Navigator
+                .of(context)
+                .push(MaterialPageRoute(builder: (context) =>
+                Dialog(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(height: 12),
+                        Text(
+                          'Über mich:',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        SizedBox(height: 12),
+                        Text(
+                          'Hallo, Ich bin der Michael. Ich habe diese App innerhalb des Modules "Konzepte der Android-Programmierung im SoSe 2021 entwickelt! Ich hoffe ihr habt viel Spaß beim Spielen :)!',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        SizedBox(height: 12),
+                        ElevatedButton(
+                            child: Text('Verstanden!'),
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => HomeScreen(),
+                                  ));
+                            })
+                      ],
+                    ),
+                  ),
+                ),
+            ));
           },
           fillColor: Colors.lightBlue,
           shape: CircleBorder(),
@@ -179,7 +353,7 @@ class HomeScreen extends StatelessWidget {
               ),
               Padding(
                 padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
+                const EdgeInsets.symmetric(horizontal: 30, vertical: 18),
                 child: FaIcon(icon, size: 35, color: Colors.white),
               ),
             ],

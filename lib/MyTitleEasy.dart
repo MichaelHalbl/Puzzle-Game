@@ -10,7 +10,7 @@ class MyTitleEasy extends StatelessWidget{
   Widget build(BuildContext context) {
     return Container(
       height: size.height * 0.10,
-      padding: EdgeInsets.all(5.0),
+      padding: EdgeInsets.all(10.0),
       child: Text(
           "Einfach",
         style: TextStyle(

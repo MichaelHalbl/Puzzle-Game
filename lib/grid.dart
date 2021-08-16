@@ -18,7 +18,7 @@ class Grid extends StatelessWidget {
     return Container(
       height: height * 0.80,
       child: Padding(
-          padding: EdgeInsets.all(28.0),
+          padding: EdgeInsets.all(25.0),
           child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4,
@@ -29,7 +29,9 @@ class Grid extends StatelessWidget {
             itemBuilder: (context,index){
               return numbers[index] != 0 ? gridButton("${numbers[index]}", (){
                 clickGrid(index);
-              }) : SizedBox.shrink();
+              }) : SizedBox.fromSize(
+                size: Size(5, 5),
+              );
             }
           )),
     );
