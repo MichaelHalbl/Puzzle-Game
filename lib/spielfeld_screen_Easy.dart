@@ -36,10 +36,10 @@ class _spielfeldState extends State<spielfeldEinfach> {
     }
     return SafeArea(
         child: Container(
-      height: size.height,
-      color: Colors.orange,
-      child: Column(
-        children: <Widget>[
+         height: size.height,
+         color: Theme.of(context).primaryColor,
+         child: Column(
+          children: <Widget>[
           MyTitleEasy(size),
           Grid(numbers, size, clickGrid),
           buttons(reset, move, secondsPassed, size, back),

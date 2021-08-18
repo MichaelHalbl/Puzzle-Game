@@ -37,13 +37,13 @@ class _spielfeldState extends State<spielfeldSchwer> {
     }
     return SafeArea(
         child: Container(
-      height: size.height,
-      color: Colors.orange,
-      child: Column(
-        children: <Widget>[
-          MyTitleHard(size),
-          Grid(numbers, size, clickGrid),
-          buttons(reset, move, secondsPassed, size, back),
+          height: size.height,
+          color: Theme.of(context).primaryColor,
+           child: Column(
+            children: <Widget>[
+            MyTitleHard(size),
+            Grid(numbers, size, clickGrid),
+           buttons(reset, move, secondsPassed, size, back),
         ],
       ),
     ));
