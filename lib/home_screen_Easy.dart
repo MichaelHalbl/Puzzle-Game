@@ -64,7 +64,6 @@ class HomeScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     circButton(FontAwesomeIcons.info, context),
                     circButton2(FontAwesomeIcons.lightbulb, context),
                     circButton3(FontAwesomeIcons.cog, context),
@@ -195,7 +194,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 12),
                       Text(
-                        'Du möchtest zum Dark oder Light Modus wechseln, dann ändere bitte deinem System-Modus dementsprechend!',
+                        'Du möchtest zum Dark oder Light Modus wechseln, dann ändere bitte deine System-Einstellung (Display zu Dark oder Light Modus)!',
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 20),
                       ),

@@ -7,6 +7,8 @@ import 'buttons.dart';
 import 'grid.dart';
 import 'dart:async';
 
+import 'home_screen_Easy.dart';
+
 class spielfeldEinfach extends StatefulWidget {
   @override
   _spielfeldState createState() => _spielfeldState();
@@ -112,24 +114,24 @@ class _spielfeldState extends State<spielfeldEinfach> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "Du hast Gewonnen auf Einfach!",
+                        "Du hast auf Einfach Gewonnen!",
                         style: TextStyle(
                           fontSize: 20.0,
                         ),
                       ),
                       SizedBox(
-                          width: 200,
+                          width: 300,
                           child: RaisedButton(
                             onPressed: () {
-                              Navigator.pop(context);
-                            },
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()),
+                              );},
                             child: Text(
                               "Schließen",
                               style: TextStyle(
                                 color: Colors.white,
                               ),
                             ),
-                            color: Colors.white,
+                            color: Theme.of(context).primaryColor,
                           ))
                     ],
                   ),

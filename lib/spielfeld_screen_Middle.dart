@@ -8,6 +8,8 @@ import 'buttons.dart';
 import 'grid.dart';
 import 'dart:async';
 
+import 'home_screen_Easy.dart';
+
 class spielfeldMittel extends StatefulWidget {
   @override
   _spielfeldState createState() => _spielfeldState();
@@ -115,24 +117,24 @@ class _spielfeldState extends State<spielfeldMittel> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        "Du hast Gewonnen auf Mittel!",
+                        "Du hast auf Mittel Gewonnen!",
                         style: TextStyle(
                           fontSize: 20.0,
                         ),
                       ),
                       SizedBox(
-                          width: 200,
+                          width: 300,
                           child: RaisedButton(
-                            onPressed: (){
-                              Navigator.pop(context);
-                            },
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()),
+                              );},
                             child: Text(
-                                "Schließen",
+                              "Schließen",
                               style: TextStyle(
                                 color: Colors.white,
                               ),
                             ),
-                            color: Colors.white,
+                            color: Theme.of(context).primaryColor,
                           ))
                     ],
                   ),
@@ -143,4 +145,3 @@ class _spielfeldState extends State<spielfeldMittel> {
     }
   }
 }
-
