@@ -1,5 +1,5 @@
 import 'dart:ffi';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firstapp_app/MyTitleHard.dart';
 import 'package:firstapp_app/Time.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +16,40 @@ class spielfeldSchwer extends StatefulWidget {
 }
 
 class _spielfeldState extends State<spielfeldSchwer> {
-  var numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
+  var numbers = [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31
+  ];
   int move = 0;
   int secondsPassed = 0;
   static const duration = const Duration(seconds: 1);
@@ -39,13 +72,13 @@ class _spielfeldState extends State<spielfeldSchwer> {
     }
     return SafeArea(
         child: Container(
-          height: size.height,
-          color: Theme.of(context).primaryColor,
-           child: Column(
-            children: <Widget>[
-            MyTitleHard(size),
-            Grid(numbers, size, clickGrid),
-           buttons(reset, move, secondsPassed, size, back),
+      height: size.height,
+      color: Theme.of(context).primaryColor,
+      child: Column(
+        children: <Widget>[
+          MyTitleHard(size),
+          Grid(numbers, size, clickGrid),
+          buttons(reset, move, secondsPassed, size, back),
         ],
       ),
     ));
@@ -62,7 +95,7 @@ class _spielfeldState extends State<spielfeldSchwer> {
       setState(() {
         numbers[numbers.indexOf(0)] = numbers[index];
         numbers[index] = 0;
-        move++;
+        move++; // wichtig für rank
       });
     }
     Win();
@@ -77,15 +110,12 @@ class _spielfeldState extends State<spielfeldSchwer> {
     });
   }
 
-  void back() {
-
-  }
-
+  void back() {}
 
   void startTime() {
     if (isActive) {}
     setState(() {
-      secondsPassed += 1;
+      secondsPassed += 1; // wichtig für rank
     });
   }
 
@@ -127,8 +157,12 @@ class _spielfeldState extends State<spielfeldSchwer> {
                           width: 300,
                           child: RaisedButton(
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()),
-                              );},
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomeScreen()),
+                              );
+                            },
                             child: Text(
                               "Schließen",
                               style: TextStyle(

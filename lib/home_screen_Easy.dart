@@ -1,4 +1,4 @@
-import 'package:firstapp_app/rank.dart';
+import 'package:firstapp_app/rankEasy.dart';
 import 'package:firstapp_app/spielfeld_screen_Easy.dart';
 import 'package:firstapp_app/spielfeld_screen_Hard.dart';
 import 'package:firstapp_app/spielfeld_screen_Middle.dart';

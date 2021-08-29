@@ -1,5 +1,5 @@
 import 'dart:ffi';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firstapp_app/Time.dart';
 import 'package:flutter/material.dart';
 import 'MyTitleEasy.dart';
@@ -38,10 +38,10 @@ class _spielfeldState extends State<spielfeldEinfach> {
     }
     return SafeArea(
         child: Container(
-         height: size.height,
-         color: Theme.of(context).primaryColor,
-         child: Column(
-          children: <Widget>[
+      height: size.height,
+          color: Theme.of(context).primaryColor,
+      child: Column(
+        children: <Widget>[
           MyTitleEasy(size),
           Grid(numbers, size, clickGrid),
           buttons(reset, move, secondsPassed, size, back),
@@ -61,7 +61,7 @@ class _spielfeldState extends State<spielfeldEinfach> {
       setState(() {
         numbers[numbers.indexOf(0)] = numbers[index];
         numbers[index] = 0;
-        move++;
+        move++; // wichtig für rank
       });
     }
     Win();
@@ -81,7 +81,8 @@ class _spielfeldState extends State<spielfeldEinfach> {
   void startTime() {
     if (isActive) {}
     setState(() {
-      secondsPassed += 1;
+      secondsPassed += 1; // wichtig für rank
+      setTimeData(secondsPassed);
     });
   }
 
@@ -123,8 +124,12 @@ class _spielfeldState extends State<spielfeldEinfach> {
                           width: 300,
                           child: RaisedButton(
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => HomeScreen()),
-                              );},
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomeScreen()),
+                              );
+                            },
                             child: Text(
                               "Schließen",
                               style: TextStyle(
@@ -141,4 +146,10 @@ class _spielfeldState extends State<spielfeldEinfach> {
       );
     }
   }
+
+  Future<void> setTimeData(timeValue) async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setInt('timeData', timeValue);
+  }
+
 }
