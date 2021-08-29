@@ -61,7 +61,8 @@ class _spielfeldState extends State<spielfeldEinfach> {
       setState(() {
         numbers[numbers.indexOf(0)] = numbers[index];
         numbers[index] = 0;
-        move++; // wichtig für rank
+        move++;// wichtig für rank
+        setMoveData(move);
       });
     }
     Win();
@@ -150,6 +151,10 @@ class _spielfeldState extends State<spielfeldEinfach> {
   Future<void> setTimeData(timeValue) async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setInt('timeData', timeValue);
+  }
+  Future<void> setMoveData(moveValue) async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setInt('moveData', moveValue);
   }
 
 }

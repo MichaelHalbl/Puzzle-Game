@@ -8,7 +8,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'home_screen_Easy.dart';
 
 class Rangliste extends StatelessWidget {
-  int timeValue;
+  static int timeValue;
+  static int moveValue;
+  String t = timeValue.toString();
+  String m = moveValue.toString();
+
   @override
   Widget build(BuildContext context) {
     IconData icon1 = FontAwesomeIcons.feather;
@@ -217,7 +221,8 @@ class Rangliste extends StatelessWidget {
           padding: const EdgeInsets.only(left: 8.0),
           child: Container(
               child: Text(
-            "Name: Username",
+            "User12345 "
+                "Deine Moves und Zeit auf einfach sind:",
             style: TextStyle(
                 color: Color(0xffe6020a),
                 fontSize: 24.0,
@@ -238,7 +243,21 @@ class Rangliste extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Container(
-          child: timeValue == null ? Text('Keine Zeit vorhanden!') : Text(''),
+            child: timeValue == null
+                ? Text(
+                    'Keine Zeit vorhanden!',
+                    style: TextStyle(
+                        color: Color(0xffe6020a),
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold),
+                  )
+                : Text(
+                    t,
+                    style: TextStyle(
+                        color: Color(0xffe6020a),
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold),
+                  ),
           ),
         ),
         Padding(
@@ -251,7 +270,7 @@ class Rangliste extends StatelessWidget {
 ////////////////////////////////////////////////////////////////////////////////
   void getTime() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    timeValue = pref.getInt('timeData');
+    t = pref.getString('timeData');
   }
 
   Widget myDetailsContainer3() {
@@ -260,19 +279,31 @@ class Rangliste extends StatelessWidget {
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
-          child: Container(
-              child: Text(
-            "Move: Züge",
-            style: TextStyle(
-                color: Color(0xffe6020a),
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold),
-          )),
+          child: moveValue == null
+              ? Text(
+                  'Keine Moves vorhanden!',
+                  style: TextStyle(
+                      color: Color(0xffe6020a),
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold),
+                )
+              : Text(
+                  m,
+                  style: TextStyle(
+                      color: Color(0xffe6020a),
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold),
+                ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
         ),
       ],
     );
+  }
+
+  void getMove() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    m = pref.getString('moveData');
   }
 }
