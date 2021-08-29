@@ -2,17 +2,32 @@ import 'package:firstapp_app/rankEasy.dart';
 import 'package:firstapp_app/rankHard.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_screen_Easy.dart';
 
-class RanglisteMiddle extends StatelessWidget {
-  IconData icon1 = FontAwesomeIcons.feather;
-  IconData icon2 = FontAwesomeIcons.userClock;
-  IconData icon3 = FontAwesomeIcons.weightHanging;
-  IconData icon4 = FontAwesomeIcons.houseUser;
+class RanglisteMiddle extends StatefulWidget {
+  @override
+  _RanglisteMiddleState createState() => _RanglisteMiddleState();
+}
+
+class _RanglisteMiddleState extends State<RanglisteMiddle> {
+  int timeValue;
+  int moveValue;
+
+  @override
+  void initState() {
+    super.initState();
+    getMoveMiddle();
+    getTimeMiddle();
+  }
 
   @override
   Widget build(BuildContext context) {
+    IconData icon1 = FontAwesomeIcons.feather;
+    IconData icon2 = FontAwesomeIcons.userClock;
+    IconData icon3 = FontAwesomeIcons.weightHanging;
+    IconData icon4 = FontAwesomeIcons.houseUser;
     //Widget
     return Scaffold(
       appBar: AppBar(
@@ -20,7 +35,6 @@ class RanglisteMiddle extends StatelessWidget {
         title: const Text('Leaderboard - Mittel'),
       ),
       drawer: Drawer(
-
         child: Container(
           color: Theme.of(context).primaryColor,
           child: ListView(
@@ -34,8 +48,8 @@ class RanglisteMiddle extends StatelessWidget {
                   child: CircleAvatar(
                     radius: 50.0,
                     backgroundColor: const Color(0xFF778899),
-                    backgroundImage:
-                    NetworkImage("https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/15-puzzle_magical.svg/1200px-15-puzzle_magical.svg.png"),
+                    backgroundImage: NetworkImage(
+                        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/15-puzzle_magical.svg/1200px-15-puzzle_magical.svg.png"),
                   ),
                 ),
               ),
@@ -51,8 +65,7 @@ class RanglisteMiddle extends StatelessWidget {
                     height: 48,
                     padding: const EdgeInsets.symmetric(vertical: 4.0),
                     alignment: Alignment.center,
-                    child:
-                        FaIcon(icon1, size: 35, color: Colors.lightBlue),
+                    child: FaIcon(icon1, size: 35, color: Colors.lightBlue),
                   ),
                 ),
                 title: const Text('Einfach'),
@@ -72,8 +85,7 @@ class RanglisteMiddle extends StatelessWidget {
                     height: 48,
                     padding: const EdgeInsets.symmetric(vertical: 4.0),
                     alignment: Alignment.center,
-                    child:
-                        FaIcon(icon2, size: 30, color: Colors.lightBlue),
+                    child: FaIcon(icon2, size: 30, color: Colors.lightBlue),
                   ),
                 ),
                 title: const Text('Mittel'),
@@ -83,16 +95,17 @@ class RanglisteMiddle extends StatelessWidget {
                 leading: GestureDetector(
                   behavior: HitTestBehavior.translucent,
                   onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => RanglisteHard()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => RanglisteHard()));
                   },
                   child: Container(
                     width: 48,
                     height: 48,
                     padding: const EdgeInsets.symmetric(vertical: 4.0),
                     alignment: Alignment.center,
-                    child:
-                        FaIcon(icon3, size: 35, color: Colors.lightBlue),
+                    child: FaIcon(icon3, size: 35, color: Colors.lightBlue),
                   ),
                 ),
                 title: const Text('Schwer'),
@@ -110,8 +123,7 @@ class RanglisteMiddle extends StatelessWidget {
                     height: 48,
                     padding: const EdgeInsets.symmetric(vertical: 4.0),
                     alignment: Alignment.center,
-                    child:
-                        FaIcon(icon4, size: 35, color: Colors.lightBlue),
+                    child: FaIcon(icon4, size: 35, color: Colors.lightBlue),
                   ),
                 ),
                 title: const Text('Hauptmenü'),
@@ -218,12 +230,12 @@ class RanglisteMiddle extends StatelessWidget {
           padding: const EdgeInsets.only(left: 8.0),
           child: Container(
               child: Text(
-                "Name: Username",
-                style: TextStyle(
-                    color: Color(0xffe6020a),
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold),
-              )),
+            "Name: Username",
+            style: TextStyle(
+                color: Color(0xffe6020a),
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold),
+          )),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
@@ -239,13 +251,22 @@ class RanglisteMiddle extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Container(
-              child: Text(
-                "Time: Zeit",
-                style: TextStyle(
-                    color: Color(0xffe6020a),
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold),
-              )),
+            child: timeValue == null
+                ? Text(
+                    'Keine Zeit vorhanden!',
+                    style: TextStyle(
+                        color: Color(0xffe6020a),
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold),
+                  )
+                : Text(
+                    timeValue.toString(),
+                    style: TextStyle(
+                        color: Color(0xffe6020a),
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
@@ -254,25 +275,44 @@ class RanglisteMiddle extends StatelessWidget {
     );
   }
 
+  void getTimeMiddle() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    timeValue = pref.getInt('timeData');
+    setState(() {});
+  }
+
   Widget myDetailsContainer3() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
-          child: Container(
-              child: Text(
-                "Move: Züge",
-                style: TextStyle(
-                    color: Color(0xffe6020a),
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold),
-              )),
+          child: moveValue == null
+              ? Text(
+                  'Keine Moves vorhanden!',
+                  style: TextStyle(
+                      color: Color(0xffe6020a),
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold),
+                )
+              : Text(
+                  moveValue.toString(),
+                  style: TextStyle(
+                      color: Color(0xffe6020a),
+                      fontSize: 24.0,
+                      fontWeight: FontWeight.bold),
+                ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
         ),
       ],
     );
+  }
+
+  void getMoveMiddle() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    moveValue = pref.getInt('moveData');
+    setState(() {});
   }
 }

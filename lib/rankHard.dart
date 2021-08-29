@@ -2,16 +2,32 @@ import 'package:firstapp_app/rankEasy.dart';
 import 'package:firstapp_app/rankMiddle.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_screen_Easy.dart';
 
-class RanglisteHard extends StatelessWidget {
-  IconData icon1 = FontAwesomeIcons.feather;
-  IconData icon2 = FontAwesomeIcons.userClock;
-  IconData icon3 = FontAwesomeIcons.weightHanging;
-  IconData icon4 = FontAwesomeIcons.houseUser;
+class RanglisteHard extends StatefulWidget {
+@override
+_RanglisteHardState createState() => _RanglisteHardState();
+}
+
+class _RanglisteHardState extends State<RanglisteHard> {
+  int timeValue;
+  int moveValue;
+
+  @override
+  void initState() {
+    super.initState();
+    getMoveHard();
+    getTimeHard();
+  }
+
   @override
   Widget build(BuildContext context) {
+    IconData icon1 = FontAwesomeIcons.feather;
+    IconData icon2 = FontAwesomeIcons.userClock;
+    IconData icon3 = FontAwesomeIcons.weightHanging;
+    IconData icon4 = FontAwesomeIcons.houseUser;
     //Widget
     return Scaffold(
       appBar: AppBar(
@@ -21,7 +37,7 @@ class RanglisteHard extends StatelessWidget {
       drawer: Drawer(
         child: Container(
           color: Theme.of(context).primaryColor,
-          child: ListView(       
+          child: ListView(
             padding: EdgeInsets.zero,
             children: [
               const DrawerHeader(
@@ -240,13 +256,22 @@ class RanglisteHard extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
           child: Container(
-              child: Text(
-                "Time: Zeit",
-                style: TextStyle(
-                    color: Color(0xffe6020a),
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold),
-              )),
+            child: timeValue == null
+                ? Text(
+              'Keine Zeit vorhanden!',
+              style: TextStyle(
+                  color: Color(0xffe6020a),
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold),
+            )
+                : Text(
+              timeValue.toString(),
+              style: TextStyle(
+                  color: Color(0xffe6020a),
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
@@ -255,25 +280,44 @@ class RanglisteHard extends StatelessWidget {
     );
   }
 
+  void getTimeHard() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    timeValue = pref.getInt('timeData');
+    setState(() {});
+  }
+
   Widget myDetailsContainer3() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
-          child: Container(
-              child: Text(
-                "Move: Züge",
-                style: TextStyle(
-                    color: Color(0xffe6020a),
-                    fontSize: 24.0,
-                    fontWeight: FontWeight.bold),
-              )),
+          child: moveValue == null
+              ? Text(
+            'Keine Moves vorhanden!',
+            style: TextStyle(
+                color: Color(0xffe6020a),
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold),
+          )
+              : Text(
+            moveValue.toString(),
+            style: TextStyle(
+                color: Color(0xffe6020a),
+                fontSize: 24.0,
+                fontWeight: FontWeight.bold),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 8.0),
         ),
       ],
     );
+  }
+
+  void getMoveHard() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    moveValue = pref.getInt('moveData');
+    setState(() {});
   }
 }

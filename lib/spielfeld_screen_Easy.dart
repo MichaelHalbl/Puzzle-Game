@@ -79,7 +79,7 @@ class _spielfeldState extends State<spielfeldEinfach> {
 
   void back() {}
 
-  void startTime() {
+  void startTime() async{
     if (isActive) {}
     setState(() {
       secondsPassed += 1; // wichtig für rank
@@ -152,6 +152,7 @@ class _spielfeldState extends State<spielfeldEinfach> {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setInt('timeData', timeValue);
   }
+
   Future<void> setMoveData(moveValue) async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setInt('moveData', moveValue);

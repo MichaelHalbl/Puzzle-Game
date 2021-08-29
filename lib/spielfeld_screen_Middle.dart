@@ -167,4 +167,14 @@ class _spielfeldState extends State<spielfeldMittel> {
       );
     }
   }
+
+  Future<void> setTimeDataMiddle(timeValue) async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setInt('timeData', timeValue);
+  }
+
+  Future<void> setMoveDataMiddle(moveValue) async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setInt('moveData', moveValue);
+  }
 }

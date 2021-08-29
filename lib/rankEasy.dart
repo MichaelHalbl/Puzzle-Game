@@ -7,11 +7,21 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_screen_Easy.dart';
 
-class Rangliste extends StatelessWidget {
-  static int timeValue;
-  static int moveValue;
-  String t = timeValue.toString();
-  String m = moveValue.toString();
+class Rangliste extends StatefulWidget {
+  @override
+  _RanglisteState createState() => _RanglisteState();
+}
+
+class _RanglisteState extends State<Rangliste> {
+  int timeValue;
+  int moveValue;
+
+  @override
+  void initState() {
+    super.initState();
+    getMove();
+    getTime();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -222,7 +232,7 @@ class Rangliste extends StatelessWidget {
           child: Container(
               child: Text(
             "User12345 "
-                "Deine Moves und Zeit auf einfach sind:",
+            "Deine Moves und Zeit auf einfach sind:",
             style: TextStyle(
                 color: Color(0xffe6020a),
                 fontSize: 24.0,
@@ -252,7 +262,7 @@ class Rangliste extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   )
                 : Text(
-                    t,
+                    timeValue.toString(),
                     style: TextStyle(
                         color: Color(0xffe6020a),
                         fontSize: 24.0,
@@ -267,10 +277,10 @@ class Rangliste extends StatelessWidget {
     );
   }
 
-////////////////////////////////////////////////////////////////////////////////
   void getTime() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    t = pref.getString('timeData');
+    timeValue = pref.getInt('timeData');
+    setState(() {});
   }
 
   Widget myDetailsContainer3() {
@@ -288,7 +298,7 @@ class Rangliste extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 )
               : Text(
-                  m,
+                  moveValue.toString(),
                   style: TextStyle(
                       color: Color(0xffe6020a),
                       fontSize: 24.0,
@@ -304,6 +314,7 @@ class Rangliste extends StatelessWidget {
 
   void getMove() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    m = pref.getString('moveData');
+    moveValue = pref.getInt('moveData');
+    setState(() {});
   }
 }

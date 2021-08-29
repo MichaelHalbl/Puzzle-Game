@@ -179,4 +179,14 @@ class _spielfeldState extends State<spielfeldSchwer> {
       );
     }
   }
+
+  Future<void> setTimeDataHard(timeValue) async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setInt('timeData', timeValue);
+  }
+
+  Future<void> setMoveDataHard(moveValue) async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    pref.setInt('moveData', moveValue);
+  }
 }
