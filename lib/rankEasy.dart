@@ -1,8 +1,15 @@
+import 'dart:typed_data';
+
 import 'package:firstapp_app/rankHard.dart';
 import 'package:firstapp_app/rankMiddle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_screen_Easy.dart';
@@ -15,6 +22,7 @@ class Rangliste extends StatefulWidget {
 class _RanglisteState extends State<Rangliste> {
   int timeValue;
   int moveValue;
+  final controller = ScreenshotController();
 
   @override
   void initState() {
@@ -134,146 +142,212 @@ class _RanglisteState extends State<Rangliste> {
           ),
         ),
       ),
-      body: ListView(
-        scrollDirection: Axis.vertical,
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
-              child: new FittedBox(
-                child: Material(
-                    color: Colors.white,
-                    elevation: 14.0,
-                    borderRadius: BorderRadius.circular(24.0),
-                    shadowColor: Color(0x802196F3),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 16.0),
+      body: Screenshot(
+        controller: controller,
+        child: ListView(
+          scrollDirection: Axis.vertical,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                child: new FittedBox(
+                  child: Material(
+                      color: Colors.white,
+                      elevation: 14.0,
+                      borderRadius: BorderRadius.circular(24.0),
+                      shadowColor: Color(0x802196F3),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            width: 150,
+                            height: 65,
                             child: myDetailsContainer1(),
                           ),
-                        ),
-                        Container(
-                          width: 250,
-                          height: 200,
-                        ),
-                      ],
-                    )),
+                        ],
+                      )),
+                ),
               ),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Container(
-              child: new FittedBox(
-                child: Material(
-                    color: Colors.white,
-                    elevation: 14.0,
-                    borderRadius: BorderRadius.circular(24.0),
-                    shadowColor: Color(0x802196F3),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 1.0),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                child: new FittedBox(
+                  child: Material(
+                      color: Colors.white,
+                      elevation: 14.0,
+                      borderRadius: BorderRadius.circular(24.0),
+                      shadowColor: Color(0x802196F3),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            width: 150,
+                            height: 65,
                             child: myDetailsContainer2(),
                           ),
-                        ),
-                        Container(
-                          width: 250,
-                          height: 180,
-                        ),
-                      ],
-                    )),
+                        ],
+                      )),
+                ),
               ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Container(
+                child: new FittedBox(
+                  child: Material(
+                      color: Colors.white,
+                      elevation: 14.0,
+                      borderRadius: BorderRadius.circular(24.0),
+                      shadowColor: Color(0x802196F3),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            width: 150,
+                            height: 65,
+                            child: myDetailsContainer3(),
+                          ),
+                        ],
+                      )),
+                ),
+              ),
+            ),
+            TextButton(
+                child: Text(
+                  'Share',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 35.0,
+                      fontWeight: FontWeight.bold),
+                ),
+                onPressed: () async {
+                  final imageFile = await controller.capture();
+                  if (imageFile == null) return;
+                  await saveImage(imageFile);
+                  saveAndShare(imageFile);
+                }),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future saveAndShare(Uint8List bytes) async {
+    final directory = await getApplicationDocumentsDirectory();
+   /* final image = File('${directory.path}/Einfach.png');
+    image.writeAsBytesSync(bytes);
+    await Share.shareFiles([image.path]); */
+  }
+
+  Future<String> saveImage(Uint8List bytes) async {
+    await [Permission.storage].request();
+
+    final time = DateTime.now()
+        .toIso8601String()
+        .replaceAll('.', '-')
+        .replaceAll(':', '-');
+    final name = 'screenshot_$time';
+    final result = await ImageGallerySaver.saveImage(bytes, name: name);
+    return result['filePath'];
+  }
+
+  Widget myDetailsContainer1() {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          SizedBox(
+            child: CircleAvatar(
+              radius: 10.0,
+              backgroundColor: const Color(0xFF778899),
+              backgroundImage: NetworkImage(
+                  "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/User_icon-cp.svg/485px-User_icon-cp.svg.png"),
+            ),
+          ),
+          Container(
+            child: Text(
+              'User1234 ',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Color(0xffe6020a),
+                  fontSize: 8.0,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.only(left: 8.0),
             child: Container(
-              child: new FittedBox(
-                child: Material(
-                    color: Colors.white,
-                    elevation: 14.0,
-                    borderRadius: BorderRadius.circular(24.0),
-                    shadowColor: Color(0x802196F3),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          child: Padding(
-                            padding: const EdgeInsets.only(left: 16.0),
-                            child: myDetailsContainer3(),
-                          ),
-                        ),
-                        Container(
-                          width: 250,
-                          height: 180,
-                        ),
-                      ],
-                    )),
-              ),
-            ),
+                child: Text(
+              "Deine besten Werte sind: ",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Color(0xffe6020a),
+                  fontSize: 8.0,
+                  fontWeight: FontWeight.bold),
+            )),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
           ),
         ],
       ),
     );
   }
 
-  Widget myDetailsContainer1() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: Container(
-              child: Text(
-            "User12345 "
-            "Deine Moves und Zeit auf einfach sind:",
-            style: TextStyle(
-                color: Color(0xffe6020a),
-                fontSize: 24.0,
-                fontWeight: FontWeight.bold),
-          )),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-        ),
-      ],
-    );
-  }
-
   Widget myDetailsContainer2() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: Container(
-            child: timeValue == null
-                ? Text(
-                    'Keine Zeit vorhanden!',
-                    style: TextStyle(
-                        color: Color(0xffe6020a),
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold),
-                  )
-                : Text(
-                    timeValue.toString(),
-                    style: TextStyle(
-                        color: Color(0xffe6020a),
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.bold),
-                  ),
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          SizedBox(
+            child: CircleAvatar(
+              radius: 10.0,
+              backgroundColor: const Color(0xFF778899),
+              backgroundImage: NetworkImage(
+                  "https://pcdn.sharethis.com/wp-content/uploads/2018/03/FeatureImage-best-time-to-post-on-instagram.jpg"),
+            ),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-        ),
-      ],
+          Padding(
+            padding: EdgeInsets.all(5.0),
+            child: Container(
+              child: Text(
+                'Deine Zeit: ',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Color(0xffe6020a),
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Container(
+              child: timeValue == null
+                  ? Text(
+                      'Keine Zeit vorhanden!',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Color(0xffe6020a),
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.bold),
+                    )
+                  : Text(
+                      timeValue.toString(),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          color: Color(0xffe6020a),
+                          fontSize: 10.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+          ),
+        ],
+      ),
     );
   }
 
@@ -284,31 +358,55 @@ class _RanglisteState extends State<Rangliste> {
   }
 
   Widget myDetailsContainer3() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-          child: moveValue == null
-              ? Text(
-                  'Keine Moves vorhanden!',
-                  style: TextStyle(
-                      color: Color(0xffe6020a),
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold),
-                )
-              : Text(
-                  moveValue.toString(),
-                  style: TextStyle(
-                      color: Color(0xffe6020a),
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold),
-                ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 8.0),
-        ),
-      ],
+    return Container(
+      child: Column(
+        children: <Widget>[
+          SizedBox(
+            child: CircleAvatar(
+              radius: 10.0,
+              backgroundColor: const Color(0xFF778899),
+              backgroundImage: NetworkImage(
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTgy0Xl7L0lHlhsCcoOOcvRGHjZU79IqJUahQ&usqp=CAU"),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Container(
+              child: Text(
+                'Deine Moves: ',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Color(0xffe6020a),
+                    fontSize: 10.0,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: moveValue == null
+                ? Text(
+                    'Keine Moves vorhanden!',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Color(0xffe6020a),
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.bold),
+                  )
+                : Text(
+                    moveValue.toString(),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Color(0xffe6020a),
+                        fontSize: 10.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+          ),
+        ],
+      ),
     );
   }
 
@@ -317,4 +415,6 @@ class _RanglisteState extends State<Rangliste> {
     moveValue = pref.getInt('moveData');
     setState(() {});
   }
+
+
 }

@@ -39,7 +39,7 @@ class _spielfeldState extends State<spielfeldEinfach> {
     return SafeArea(
         child: Container(
       height: size.height,
-          color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColor,
       child: Column(
         children: <Widget>[
           MyTitleEasy(size),
@@ -61,7 +61,7 @@ class _spielfeldState extends State<spielfeldEinfach> {
       setState(() {
         numbers[numbers.indexOf(0)] = numbers[index];
         numbers[index] = 0;
-        move++;// wichtig für rank
+        move++; // wichtig für rank
         setMoveData(move);
       });
     }
@@ -79,12 +79,14 @@ class _spielfeldState extends State<spielfeldEinfach> {
 
   void back() {}
 
-  void startTime() async{
-    if (isActive) {}
-    setState(() {
-      secondsPassed += 1; // wichtig für rank
-      setTimeData(secondsPassed);
-    });
+  void startTime() async {
+    if (isActive) {
+      setState(() {
+        secondsPassed += 1; // wichtig für rank
+        setTimeData(secondsPassed);
+      });
+    }
+
   }
 
   bool sorted(List list) {
@@ -157,5 +159,4 @@ class _spielfeldState extends State<spielfeldEinfach> {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     pref.setInt('moveData', moveValue);
   }
-
 }
