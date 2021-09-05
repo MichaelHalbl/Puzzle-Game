@@ -23,8 +23,8 @@ class RanglisteMiddle extends StatefulWidget {
 }
 
 class _RanglisteMiddleState extends State<RanglisteMiddle> {
-  int timeValue;
-  int moveValue;
+  int timeValueMiddle;
+  int moveValueMiddle;
   final controller = ScreenshotController();
 
   @override
@@ -330,7 +330,7 @@ class _RanglisteMiddleState extends State<RanglisteMiddle> {
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
             child: Container(
-              child: timeValue == null
+              child: timeValueMiddle == null
                   ? Text(
                 'Keine Zeit vorhanden!',
                 textAlign: TextAlign.center,
@@ -340,7 +340,7 @@ class _RanglisteMiddleState extends State<RanglisteMiddle> {
                     fontWeight: FontWeight.bold),
               )
                   : Text(
-                timeValue.toString(),
+                timeValueMiddle.toString(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                     color: Color(0xffe6020a),
@@ -359,7 +359,7 @@ class _RanglisteMiddleState extends State<RanglisteMiddle> {
 
   void getTimeMiddle() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    timeValue = pref.getInt('timeData');
+    timeValueMiddle = pref.getInt('timeDataMiddle');
     setState(() {});
   }
 
@@ -390,7 +390,7 @@ class _RanglisteMiddleState extends State<RanglisteMiddle> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
-            child: moveValue == null
+            child: moveValueMiddle == null
                 ? Text(
               'Keine Moves vorhanden!',
               textAlign: TextAlign.center,
@@ -400,7 +400,7 @@ class _RanglisteMiddleState extends State<RanglisteMiddle> {
                   fontWeight: FontWeight.bold),
             )
                 : Text(
-              moveValue.toString(),
+              moveValueMiddle.toString(),
               textAlign: TextAlign.center,
               style: TextStyle(
                   color: Color(0xffe6020a),
@@ -418,7 +418,7 @@ class _RanglisteMiddleState extends State<RanglisteMiddle> {
 
   void getMoveMiddle() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    moveValue = pref.getInt('moveData');
+    moveValueMiddle = pref.getInt('moveDataMiddle');
     setState(() {});
   }
 }

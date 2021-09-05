@@ -96,6 +96,7 @@ class _spielfeldState extends State<spielfeldSchwer> {
         numbers[numbers.indexOf(0)] = numbers[index];
         numbers[index] = 0;
         move++; // wichtig für rank
+        setMoveDataHard(move);
       });
     }
     Win();
@@ -116,6 +117,7 @@ class _spielfeldState extends State<spielfeldSchwer> {
     if (isActive) {}
     setState(() {
       secondsPassed += 1; // wichtig für rank
+      setTimeDataHard(secondsPassed);
     });
   }
 
@@ -182,11 +184,11 @@ class _spielfeldState extends State<spielfeldSchwer> {
 
   Future<void> setTimeDataHard(timeValue) async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setInt('timeData', timeValue);
+    pref.setInt('timeDataHard', timeValue);
   }
 
   Future<void> setMoveDataHard(moveValue) async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setInt('moveData', moveValue);
+    pref.setInt('moveDataHard', moveValue);
   }
 }

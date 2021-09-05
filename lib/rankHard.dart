@@ -20,8 +20,8 @@ class RanglisteHard extends StatefulWidget {
 }
 
 class _RanglisteHardState extends State<RanglisteHard> {
-  int timeValue;
-  int moveValue;
+  int timeValueHard;
+  int moveValueHard;
   final controller = ScreenshotController();
 
   @override
@@ -29,7 +29,6 @@ class _RanglisteHardState extends State<RanglisteHard> {
     super.initState();
     getMoveHard();
     getTimeHard();
-
   }
 
   @override
@@ -145,7 +144,6 @@ class _RanglisteHardState extends State<RanglisteHard> {
           ),
         ),
       ),
-
       body: Screenshot(
         controller: controller,
         child: ListView(
@@ -329,7 +327,7 @@ class _RanglisteHardState extends State<RanglisteHard> {
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
             child: Container(
-              child: timeValue == null
+              child: timeValueHard == null
                   ? Text(
                       'Keine Zeit vorhanden!',
                       textAlign: TextAlign.center,
@@ -339,7 +337,7 @@ class _RanglisteHardState extends State<RanglisteHard> {
                           fontWeight: FontWeight.bold),
                     )
                   : Text(
-                      timeValue.toString(),
+                      timeValueHard.toString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(
                           color: Color(0xffe6020a),
@@ -358,7 +356,7 @@ class _RanglisteHardState extends State<RanglisteHard> {
 
   void getTimeHard() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    timeValue = pref.getInt('timeData');
+    timeValueHard = pref.getInt('timeDataHard');
     setState(() {});
   }
 
@@ -389,7 +387,7 @@ class _RanglisteHardState extends State<RanglisteHard> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 8.0),
-            child: moveValue == null
+            child: moveValueHard == null
                 ? Text(
                     'Keine Moves vorhanden!',
                     textAlign: TextAlign.center,
@@ -399,7 +397,7 @@ class _RanglisteHardState extends State<RanglisteHard> {
                         fontWeight: FontWeight.bold),
                   )
                 : Text(
-                    moveValue.toString(),
+                    moveValueHard.toString(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         color: Color(0xffe6020a),
@@ -417,7 +415,7 @@ class _RanglisteHardState extends State<RanglisteHard> {
 
   void getMoveHard() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    moveValue = pref.getInt('moveData');
+    moveValueHard = pref.getInt('moveDataHard');
     setState(() {});
   }
 }

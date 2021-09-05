@@ -84,6 +84,7 @@ class _spielfeldState extends State<spielfeldMittel> {
         numbers[numbers.indexOf(0)] = numbers[index];
         numbers[index] = 0;
         move++; //wichtig für rank
+        setMoveDataMiddle(move);
       });
     }
     Win();
@@ -104,6 +105,7 @@ class _spielfeldState extends State<spielfeldMittel> {
     if (isActive) {}
     setState(() {
       secondsPassed += 1; // wichtig für rank
+      setTimeDataMiddle(secondsPassed);
     });
   }
 
@@ -170,11 +172,11 @@ class _spielfeldState extends State<spielfeldMittel> {
 
   Future<void> setTimeDataMiddle(timeValue) async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setInt('timeData', timeValue);
+    pref.setInt('timeDataMiddle', timeValue);
   }
 
   Future<void> setMoveDataMiddle(moveValue) async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
-    pref.setInt('moveData', moveValue);
+    pref.setInt('moveDataMiddle', moveValue);
   }
 }
