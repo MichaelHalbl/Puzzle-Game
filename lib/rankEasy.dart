@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:firstapp_app/rankHard.dart';
@@ -224,7 +225,7 @@ class _RanglisteState extends State<Rangliste> {
                 onPressed: () async {
                   final imageFile = await controller.capture();
                   if (imageFile == null) return;
-                  await saveImage(imageFile);
+                  // await saveImage(imageFile);
                   saveAndShare(imageFile);
                 }),
           ],
@@ -235,9 +236,10 @@ class _RanglisteState extends State<Rangliste> {
 
   Future saveAndShare(Uint8List bytes) async {
     final directory = await getApplicationDocumentsDirectory();
-   /* final image = File('${directory.path}/Einfach.png');
+    final image = File('${directory.path}/Einfach.png');
     image.writeAsBytesSync(bytes);
-    await Share.shareFiles([image.path]); */
+    final text = 'Shared from The Number Puzzle App';
+    await Share.shareFiles([image.path], text: text);
   }
 
   Future<String> saveImage(Uint8List bytes) async {

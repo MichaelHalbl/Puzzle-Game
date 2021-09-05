@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:firstapp_app/rankEasy.dart';
@@ -8,6 +9,7 @@ import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home_screen_Easy.dart';
@@ -237,9 +239,10 @@ class _RanglisteHardState extends State<RanglisteHard> {
 
   Future saveAndShare(Uint8List bytes) async {
     final directory = await getApplicationDocumentsDirectory();
-    /* final image = File('${directory.path}/Einfach.png');
+    final image = File('${directory.path}/Einfach.png');
     image.writeAsBytesSync(bytes);
-    await Share.shareFiles([image.path]); */
+    final text = 'Shared from The Number Puzzle App';
+    await Share.shareFiles([image.path], text: text);
   }
 
   Future<String> saveImage(Uint8List bytes) async {

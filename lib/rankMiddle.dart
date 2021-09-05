@@ -1,15 +1,20 @@
+import 'dart:io';
+import 'dart:typed_data';
+
 import 'package:firstapp_app/rankEasy.dart';
 import 'package:firstapp_app/rankHard.dart';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'home_screen_Easy.dart';
-import 'dart:typed_data';
-import 'package:flutter/cupertino.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'home_screen_Easy.dart';
 
 
 class RanglisteMiddle extends StatefulWidget {
@@ -38,206 +43,207 @@ class _RanglisteMiddleState extends State<RanglisteMiddle> {
     IconData icon4 = FontAwesomeIcons.houseUser;
     //Widget
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('Leaderboard - Mittel'),
-      ),
-      drawer: Drawer(
-        child: Container(
-          color: Theme.of(context).primaryColor,
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text('Leaderboard - Mittel'),
+        ),
+        drawer: Drawer(
+          child: Container(
+            color: Theme.of(context).primaryColor,
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                const DrawerHeader(
+                  decoration: BoxDecoration(
+                    color: Colors.deepOrangeAccent,
+                  ),
+                  child: SizedBox(
+                    child: CircleAvatar(
+                      radius: 50.0,
+                      backgroundColor: const Color(0xFF778899),
+                      backgroundImage: NetworkImage(
+                          "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/15-puzzle_magical.svg/1200px-15-puzzle_magical.svg.png"),
+                    ),
+                  ),
+                ),
+                ListTile(
+                  leading: GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Rangliste()));
+                    },
+                    child: Container(
+                      width: 48,
+                      height: 48,
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      alignment: Alignment.center,
+                      child: FaIcon(icon1, size: 35, color: Colors.lightBlue),
+                    ),
+                  ),
+                  title: const Text('Einfach'),
+                  dense: false,
+                ),
+                ListTile(
+                  leading: GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RanglisteMiddle()));
+                    },
+                    child: Container(
+                      width: 48,
+                      height: 48,
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      alignment: Alignment.center,
+                      child: FaIcon(icon2, size: 30, color: Colors.lightBlue),
+                    ),
+                  ),
+                  title: const Text('Mittel'),
+                  dense: false,
+                ),
+                ListTile(
+                  leading: GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => RanglisteHard()));
+                    },
+                    child: Container(
+                      width: 48,
+                      height: 48,
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      alignment: Alignment.center,
+                      child: FaIcon(icon3, size: 35, color: Colors.lightBlue),
+                    ),
+                  ),
+                  title: const Text('Schwer'),
+                  dense: false,
+                ),
+                ListTile(
+                  leading: GestureDetector(
+                    behavior: HitTestBehavior.translucent,
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomeScreen()));
+                    },
+                    child: Container(
+                      width: 48,
+                      height: 48,
+                      padding: const EdgeInsets.symmetric(vertical: 4.0),
+                      alignment: Alignment.center,
+                      child: FaIcon(icon4, size: 35, color: Colors.lightBlue),
+                    ),
+                  ),
+                  title: const Text('Hauptmenü'),
+                  dense: false,
+                ),
+              ],
+            ),
+          ),
+        ),
+
+        body: Screenshot(
+          controller: controller,
           child: ListView(
-            padding: EdgeInsets.zero,
-            children: [
-              const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.deepOrangeAccent,
-                ),
-                child: SizedBox(
-                  child: CircleAvatar(
-                    radius: 50.0,
-                    backgroundColor: const Color(0xFF778899),
-                    backgroundImage: NetworkImage(
-                        "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/15-puzzle_magical.svg/1200px-15-puzzle_magical.svg.png"),
+            scrollDirection: Axis.vertical,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Container(
+                  child: new FittedBox(
+                    child: Material(
+                        color: Colors.white,
+                        elevation: 14.0,
+                        borderRadius: BorderRadius.circular(24.0),
+                        shadowColor: Color(0x802196F3),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              width: 150,
+                              height: 65,
+                              child: myDetailsContainer1(),
+                            ),
+                          ],
+                        )),
                   ),
                 ),
               ),
-              ListTile(
-                leading: GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Rangliste()));
-                  },
-                  child: Container(
-                    width: 48,
-                    height: 48,
-                    padding: const EdgeInsets.symmetric(vertical: 4.0),
-                    alignment: Alignment.center,
-                    child: FaIcon(icon1, size: 35, color: Colors.lightBlue),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Container(
+                  child: new FittedBox(
+                    child: Material(
+                        color: Colors.white,
+                        elevation: 14.0,
+                        borderRadius: BorderRadius.circular(24.0),
+                        shadowColor: Color(0x802196F3),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              width: 150,
+                              height: 65,
+                              child: myDetailsContainer2(),
+                            ),
+                          ],
+                        )),
                   ),
                 ),
-                title: const Text('Einfach'),
-                dense: false,
               ),
-              ListTile(
-                leading: GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => RanglisteMiddle()));
-                  },
-                  child: Container(
-                    width: 48,
-                    height: 48,
-                    padding: const EdgeInsets.symmetric(vertical: 4.0),
-                    alignment: Alignment.center,
-                    child: FaIcon(icon2, size: 30, color: Colors.lightBlue),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Container(
+                  child: new FittedBox(
+                    child: Material(
+                        color: Colors.white,
+                        elevation: 14.0,
+                        borderRadius: BorderRadius.circular(24.0),
+                        shadowColor: Color(0x802196F3),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              width: 150,
+                              height: 65,
+                              child: myDetailsContainer3(),
+                            ),
+                          ],
+                        )),
                   ),
                 ),
-                title: const Text('Mittel'),
-                dense: false,
               ),
-              ListTile(
-                leading: GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => RanglisteHard()));
-                  },
-                  child: Container(
-                    width: 48,
-                    height: 48,
-                    padding: const EdgeInsets.symmetric(vertical: 4.0),
-                    alignment: Alignment.center,
-                    child: FaIcon(icon3, size: 35, color: Colors.lightBlue),
+             TextButton(
+                  child: Text(
+                    'Share',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 35.0,
+                        fontWeight: FontWeight.bold),
                   ),
-                ),
-                title: const Text('Schwer'),
-                dense: false,
-              ),
-              ListTile(
-                leading: GestureDetector(
-                  behavior: HitTestBehavior.translucent,
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
-                  },
-                  child: Container(
-                    width: 48,
-                    height: 48,
-                    padding: const EdgeInsets.symmetric(vertical: 4.0),
-                    alignment: Alignment.center,
-                    child: FaIcon(icon4, size: 35, color: Colors.lightBlue),
-                  ),
-                ),
-                title: const Text('Hauptmenü'),
-                dense: false,
-              ),
+                  onPressed: () async {
+                    final imageFile = await controller.capture();
+                    if (imageFile == null) return;
+                   // await saveImage(imageFile);
+                    saveAndShare(imageFile);
+                  }),
             ],
           ),
         ),
-      ),
-
-      body: Screenshot(
-        controller: controller,
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Container(
-                child: new FittedBox(
-                  child: Material(
-                      color: Colors.white,
-                      elevation: 14.0,
-                      borderRadius: BorderRadius.circular(24.0),
-                      shadowColor: Color(0x802196F3),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            width: 150,
-                            height: 65,
-                            child: myDetailsContainer1(),
-                          ),
-                        ],
-                      )),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Container(
-                child: new FittedBox(
-                  child: Material(
-                      color: Colors.white,
-                      elevation: 14.0,
-                      borderRadius: BorderRadius.circular(24.0),
-                      shadowColor: Color(0x802196F3),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            width: 150,
-                            height: 65,
-                            child: myDetailsContainer2(),
-                          ),
-                        ],
-                      )),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Container(
-                child: new FittedBox(
-                  child: Material(
-                      color: Colors.white,
-                      elevation: 14.0,
-                      borderRadius: BorderRadius.circular(24.0),
-                      shadowColor: Color(0x802196F3),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            width: 150,
-                            height: 65,
-                            child: myDetailsContainer3(),
-                          ),
-                        ],
-                      )),
-                ),
-              ),
-            ),
-            TextButton(
-                child: Text(
-                  'Share',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 35.0,
-                      fontWeight: FontWeight.bold),
-                ),
-                onPressed: () async {
-                  final imageFile = await controller.capture();
-                  if (imageFile == null) return;
-                  await saveImage(imageFile);
-                  saveAndShare(imageFile);
-                }),
-          ],
-        ),
-      ),
-    );
+      );
   }
 
   Future saveAndShare(Uint8List bytes) async {
     final directory = await getApplicationDocumentsDirectory();
-    /* final image = File('${directory.path}/Einfach.png');
+    final image = File('${directory.path}/Einfach.png');
     image.writeAsBytesSync(bytes);
-    await Share.shareFiles([image.path]); */
+    final text = 'Shared from The Number Puzzle App';
+    await Share.shareFiles([image.path], text: text);
   }
 
   Future<String> saveImage(Uint8List bytes) async {
